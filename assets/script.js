@@ -102,4 +102,245 @@
       plate.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     });
   }
+
+  /* ============================================================
+     COMMANDER — bowl builder + cart + WhatsApp checkout
+     ============================================================ */
+  const STORAGE_KEY = "imako-cart-v1";
+  const PHONE_WA = "3265587721";
+  const fmt = (n) => `${n.toFixed(2).replace(".", ",")} €`;
+
+  /* --- Cart state --------------------------------------------- */
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch (e) { cart = []; }
+
+  const saveCart = () => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch (e) {}
+  };
+
+  const cartFabs   = $$("[data-cart-open]");
+  const cartCounts = $$("[data-cart-count]");
+  const cartHead   = $("[data-cart-headcount]");
+  const cartBody   = $("[data-cart-body]");
+  const cartFoot   = $("[data-cart-foot]");
+  const cartTotal  = $("[data-cart-total]");
+  const cartEmpty  = $("[data-cart-empty]");
+  const cartEl     = $("[data-cart]");
+  const scrim      = $("[data-scrim]");
+  const toastEl    = $("[data-toast]");
+  const fabBtn     = $(".cart-fab");
+
+  const totalQty   = () => cart.reduce((s, i) => s + i.qty, 0);
+  const totalPrice = () => cart.reduce((s, i) => s + i.qty * i.price, 0);
+
+  const renderCart = () => {
+    const qty = totalQty();
+    cartCounts.forEach(el => {
+      el.textContent = qty;
+      const wrap = el.closest(".cart-fab, .nav__cart");
+      if (wrap) wrap.classList.toggle("has-items", qty > 0);
+    });
+    if (cartHead) cartHead.textContent = qty ? ` · ${qty} article${qty > 1 ? "s" : ""}` : "";
+
+    // existing items wiped (keep the empty-state node detached when items present)
+    $$(".cart__item", cartBody).forEach(n => n.remove());
+
+    if (!cart.length) {
+      if (cartEmpty) cartEmpty.style.display = "";
+      cartFoot.hidden = true;
+      return;
+    }
+    if (cartEmpty) cartEmpty.style.display = "none";
+    cartFoot.hidden = false;
+
+    cart.forEach((item, idx) => {
+      const node = document.createElement("div");
+      node.className = "cart__item";
+      node.innerHTML = `
+        <h4>${escapeHtml(item.name)}</h4>
+        <span class="price">${fmt(item.qty * item.price)}</span>
+        ${item.details ? `<p class="details">${escapeHtml(item.details)}</p>` : ""}
+        <div class="controls">
+          <div class="qty">
+            <button type="button" data-dec="${idx}" aria-label="Diminuer">−</button>
+            <span class="n">${item.qty}</span>
+            <button type="button" data-inc="${idx}" aria-label="Augmenter">+</button>
+          </div>
+          <button type="button" class="remove" data-rm="${idx}">Retirer</button>
+        </div>
+      `;
+      cartBody.appendChild(node);
+    });
+    cartTotal.textContent = fmt(totalPrice());
+  };
+
+  const escapeHtml = (s) => String(s).replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  const bumpFab = () => {
+    if (!fabBtn) return;
+    fabBtn.classList.remove("bump");
+    void fabBtn.offsetWidth;
+    fabBtn.classList.add("bump");
+  };
+
+  let toastT;
+  const toast = (msg) => {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add("is-show");
+    clearTimeout(toastT);
+    toastT = setTimeout(() => toastEl.classList.remove("is-show"), 2200);
+  };
+
+  const addItem = (item) => {
+    const key = `${item.name}::${item.details || ""}`;
+    const existing = cart.find(i => `${i.name}::${i.details || ""}` === key);
+    if (existing) existing.qty += item.qty || 1;
+    else cart.push({ ...item, qty: item.qty || 1 });
+    saveCart();
+    renderCart();
+    bumpFab();
+    toast(`${item.name} ajouté`);
+  };
+
+  /* --- Drawer toggle ------------------------------------------ */
+  const openCart = () => {
+    cartEl.classList.add("is-open");
+    scrim.classList.add("is-open");
+    cartEl.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+  const closeCart = () => {
+    cartEl.classList.remove("is-open");
+    scrim.classList.remove("is-open");
+    cartEl.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+  cartFabs.forEach(b => b.addEventListener("click", openCart));
+  $$("[data-cart-close]").forEach(b => b.addEventListener("click", closeCart));
+  scrim?.addEventListener("click", closeCart);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCart(); });
+
+  /* --- Cart item controls (delegation) ------------------------ */
+  cartBody?.addEventListener("click", (e) => {
+    const t = e.target.closest("button");
+    if (!t) return;
+    if (t.dataset.inc != null) { cart[+t.dataset.inc].qty++; }
+    else if (t.dataset.dec != null) {
+      const i = +t.dataset.dec;
+      cart[i].qty--;
+      if (cart[i].qty <= 0) cart.splice(i, 1);
+    }
+    else if (t.dataset.rm != null) { cart.splice(+t.dataset.rm, 1); }
+    saveCart();
+    renderCart();
+  });
+
+  /* --- Mode toggle (address visibility) ----------------------- */
+  const addressInput = $("[data-address]");
+  const syncMode = () => {
+    const mode = $('input[name="mode"]:checked')?.value;
+    if (addressInput) {
+      const liv = mode === "livraison";
+      addressInput.style.display = liv ? "" : "none";
+      addressInput.required = liv;
+    }
+  };
+  $$('input[name="mode"]').forEach(r => r.addEventListener("change", syncMode));
+  syncMode();
+
+  /* --- Carte: + buttons --------------------------------------- */
+  $$(".carte__panel article [data-add]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const art = btn.closest("article");
+      addItem({
+        name: art.dataset.name,
+        price: parseFloat(art.dataset.price),
+      });
+    });
+  });
+
+  /* --- Bowl builder ------------------------------------------- */
+  const builder = $("[data-builder]");
+  if (builder) {
+    const summaryLines = $("[data-summary-lines]");
+    const summaryTotal = $("[data-summary-total]");
+
+    const readBuilder = () => {
+      const base   = $('input[name="b-base"]:checked', builder);
+      const prot   = $('input[name="b-prot"]:checked', builder);
+      const sauce  = $('input[name="b-sauce"]:checked', builder);
+      const veg    = $$('input[name="b-veg"]:checked', builder);
+      const items  = [];
+      if (prot)  items.push({ label: prot.value,  price: +prot.dataset.price });
+      if (base)  items.push({ label: base.value,  price: +base.dataset.price });
+      veg.forEach(v => items.push({ label: v.value, price: +v.dataset.price }));
+      if (sauce) items.push({ label: sauce.value, price: +sauce.dataset.price });
+      const total = items.reduce((s, i) => s + i.price, 0);
+      return { items, total, prot, base, sauce, veg };
+    };
+
+    const renderBuilder = () => {
+      const { items, total } = readBuilder();
+      summaryLines.innerHTML = items.map(i =>
+        `<li><span>${escapeHtml(i.label)}</span><span>${i.price > 0 ? "+" + fmt(i.price) : ""}</span></li>`
+      ).join("");
+      summaryTotal.textContent = fmt(total);
+    };
+
+    builder.addEventListener("change", renderBuilder);
+    // Limit veg to 4
+    $$('input[name="b-veg"]', builder).forEach(cb => {
+      cb.addEventListener("change", () => {
+        const checked = $$('input[name="b-veg"]:checked', builder);
+        if (checked.length > 4) {
+          cb.checked = false;
+          toast("4 toppings maximum");
+          renderBuilder();
+        }
+      });
+    });
+    renderBuilder();
+
+    $("[data-builder-add]")?.addEventListener("click", () => {
+      const { items, total, prot, base, sauce } = readBuilder();
+      if (!prot || !base || !sauce) { toast("Choisissez base, protéine et sauce"); return; }
+      const details = items.map(i => i.label).join(" · ");
+      addItem({
+        name: `Poke ${prot.value}`,
+        price: total,
+        details,
+      });
+    });
+  }
+
+  /* --- Checkout — WhatsApp ------------------------------------ */
+  $("[data-cart-form]")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!cart.length) { toast("Votre panier est vide"); return; }
+    const fd = new FormData(e.currentTarget);
+    const mode = fd.get("mode");
+    const lines = [
+      `*Nouvelle commande Imakō*`,
+      ``,
+      `Nom : ${fd.get("name")}`,
+      `Téléphone : ${fd.get("phone")}`,
+      `Mode : ${mode === "livraison" ? "Livraison" : "À emporter"}`,
+      `Heure souhaitée : ${fd.get("time")}`,
+    ];
+    if (mode === "livraison" && fd.get("address")) lines.push(`Adresse : ${fd.get("address")}`);
+    if (fd.get("notes")) lines.push(`Notes : ${fd.get("notes")}`);
+    lines.push(``, `*Détail*`);
+    cart.forEach(i => {
+      lines.push(`• ${i.qty} × ${i.name} — ${fmt(i.qty * i.price)}`);
+      if (i.details) lines.push(`   ↳ ${i.details}`);
+    });
+    lines.push(``, `*Total : ${fmt(totalPrice())}*`);
+    const url = `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(lines.join("\n"))}`;
+    window.open(url, "_blank", "noopener");
+    toast("Commande envoyée sur WhatsApp");
+  });
+
+  renderCart();
 })();
