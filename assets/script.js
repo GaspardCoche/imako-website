@@ -77,29 +77,51 @@
     if (el.textContent.trim() === "0") el.textContent = el.dataset.count;
   }), 2500);
 
-  /* Aujourd'hui — heures */
+  /* Aujourd'hui — heures + nav status */
+  const HOURS = {
+    0: { open: 18, close: 20.5, label: "18:00 — 20:30" },
+    1: { open: 18, close: 20.5, label: "18:00 — 20:30" },
+    2: { open: null, close: null, label: "Fermé aujourd'hui" },
+    3: { open: 18, close: 21,   label: "18:00 — 21:00" },
+    4: { open: 18, close: 21,   label: "18:00 — 21:00" },
+    5: { open: 18, close: 21,   label: "18:00 — 21:00" },
+    6: { open: 18, close: 21,   label: "18:00 — 21:00" },
+  };
+  const now      = new Date();
+  const dayInfo  = HOURS[now.getDay()];
+  const hourNow  = now.getHours() + now.getMinutes() / 60;
+
   const todayEl = $("[data-today-hours]");
-  if (todayEl) {
-    const day = new Date().getDay(); // 0 dim, 1 lun, 2 mar, ...
-    const map = {
-      0: "18:00 — 20:30",
-      1: "18:00 — 20:30",
-      2: "Fermé aujourd'hui",
-      3: "18:00 — 21:00",
-      4: "18:00 — 21:00",
-      5: "18:00 — 21:00",
-      6: "18:00 — 21:00",
-    };
-    todayEl.textContent = map[day];
+  if (todayEl) todayEl.textContent = dayInfo.label;
+
+  const navStatus  = $("[data-nav-status]");
+  const statusText = $("[data-status-text]");
+  if (navStatus && statusText) {
+    if (dayInfo.open == null) {
+      statusText.textContent = "Fermé aujourd'hui";
+      navStatus.classList.add("is-closed");
+    } else if (hourNow >= dayInfo.open && hourNow < dayInfo.close) {
+      const closeH = Math.floor(dayInfo.close);
+      const closeM = Math.round((dayInfo.close - closeH) * 60);
+      statusText.textContent = `Ouvert · jusqu'à ${closeH}h${closeM ? closeM : ""}`;
+    } else if (hourNow < dayInfo.open) {
+      statusText.textContent = `Ouvert ce soir · ${dayInfo.label}`;
+      navStatus.classList.add("is-closed");
+    } else {
+      statusText.textContent = "Fermé · ouvre demain";
+      navStatus.classList.add("is-closed");
+    }
   }
 
-  /* Light parallax on hero plate */
-  const plate = $(".hero__plate");
-  if (plate && window.matchMedia("(min-width: 980px)").matches) {
+  /* Light parallax on hero bowl */
+  const heroBowl = $(".hero__bowl");
+  if (heroBowl && window.matchMedia("(min-width: 980px)").matches) {
     document.addEventListener("mousemove", (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 12;
-      const y = (e.clientY / window.innerHeight - 0.5) * 12;
-      plate.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      const x = (e.clientX / window.innerWidth - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      heroBowl.style.setProperty("--mx", `${x}px`);
+      heroBowl.style.setProperty("--my", `${y}px`);
+      heroBowl.style.translate = `${x}px ${y}px`;
     });
   }
 
