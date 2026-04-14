@@ -26,6 +26,16 @@
   } catch (e) {}
   modeBtns.forEach(b => b.addEventListener("click", () => applyMode(b.dataset.modeBtn)));
 
+  /* Liens qui provoquent un changement d'univers (ex. "Massages" en mode cuisine) */
+  $$("[data-goto-mode]").forEach(a => {
+    a.addEventListener("click", (e) => {
+      const target = a.dataset.gotoMode;
+      if (target === "cuisine" || target === "bien-etre") {
+        if (document.body.dataset.mode !== target) applyMode(target);
+      }
+    });
+  });
+
   /* Nav: stuck on scroll */
   const nav = $("[data-nav]");
   const onScroll = () => nav.classList.toggle("is-stuck", window.scrollY > 24);

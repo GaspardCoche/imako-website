@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/styles.css" />
 
@@ -37,10 +37,14 @@
 
     <nav class="nav__links" aria-label="Navigation principale">
       <a href="#histoire">Histoire</a>
-      <a href="#carte">Carte</a>
-      <a href="#commander">Commander</a>
-      <a href="#experience">Privée</a>
-      <a href="#bien-etre">Massages</a>
+      <a href="#carte" data-show="cuisine">Carte</a>
+      <a href="#commander" data-show="cuisine">Commander</a>
+      <a href="#experience" data-show="cuisine">Privée</a>
+      <a href="#salon-philosophie" data-show="bien-etre">Philosophie</a>
+      <a href="#salon-soins" data-show="bien-etre">Les soins</a>
+      <a href="#salon-seance" data-show="bien-etre">La séance</a>
+      <a href="#salon-lieu" data-show="bien-etre">Le lieu</a>
+      <a href="#bien-etre" data-show="cuisine" data-goto-mode="bien-etre">Massages</a>
       <a href="#contact">Visiter</a>
     </nav>
 
@@ -272,6 +276,9 @@
         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg>
         <span>Fait maison · chaque jour</span>
       </div>
+
+      <!-- Stamp 福 (fu, bonheur) -->
+      <span class="hero__seal" aria-hidden="true">福</span>
     </div>
 
     <!-- Stage côté bien-être : cercle de soin zen -->
@@ -329,7 +336,7 @@
   </section>
 
   <!-- MARQUEE -->
-  <div class="marquee" aria-hidden="true">
+  <div class="marquee" data-mode-section="cuisine" aria-hidden="true">
     <div class="marquee__track">
       <span>Poke Bowls</span><span>·</span>
       <span>Wok &amp; Curry</span><span>·</span>
@@ -397,7 +404,7 @@
   </section>
 
   <!-- POKE — pièce signature -->
-  <section class="poke" id="poke">
+  <section class="poke" id="poke" data-mode-section="cuisine">
     <div class="poke__inner">
       <div class="poke__text">
         <p class="section__num light">02 — La signature</p>
@@ -435,7 +442,7 @@
   </section>
 
   <!-- BUILDER — composez votre bowl -->
-  <section class="builder" id="commander">
+  <section class="builder" id="commander" data-mode-section="cuisine">
     <div class="builder__inner">
       <div class="builder__head section__head">
         <p class="section__num">— Commander en ligne</p>
@@ -529,7 +536,7 @@
   </section>
 
   <!-- CARTE -->
-  <section class="section carte" id="carte">
+  <section class="section carte" id="carte" data-mode-section="cuisine">
     <div class="section__head">
       <p class="section__num">03 — La carte</p>
       <h2 class="section__title">Cinq cuisines, une seule maison.</h2>
@@ -611,7 +618,7 @@
   </section>
 
   <!-- EXPÉRIENCE -->
-  <section class="experience" id="experience">
+  <section class="experience" id="experience" data-mode-section="cuisine">
     <div class="experience__inner">
       <div class="experience__head">
         <p class="section__num light">04 — Expérience privée</p>
@@ -652,120 +659,199 @@
     </div>
   </section>
 
-  <!-- BIEN-ÊTRE / MASSAGES -->
-  <section class="section bienetre" id="bien-etre">
+  <!-- SALON — univers bien-être (masqué en mode cuisine, visible en mode bien-etre) -->
+  <div class="salon" data-mode-section="bien-etre" id="bien-etre">
+
     <!-- Idéogramme de fond : 氣 (qi, l'énergie) -->
-    <span class="bienetre__kanji" aria-hidden="true">氣</span>
+    <span class="salon__kanji" aria-hidden="true">氣</span>
 
-    <div class="bienetre__grid">
-      <div class="bienetre__copy">
-        <p class="section__num">05 — Bien-être</p>
-        <h2 class="section__title">Massages <em>traditionnels chinois.</em></h2>
-        <p>
-          Imako, c'est aussi une salle de soins. On y vient pour relâcher
-          ce que la semaine a noué&nbsp;: dos cassé d'écran, jambes lourdes, crispations.
-          Techniques traditionnelles, sur réservation, hors des heures de service.
-        </p>
-        <p class="bienetre__note">
-          Nos soins ne remplacent pas un traitement médical&nbsp;; ils prolongent l'expérience d'une cuisine pensée pour faire du bien.
-        </p>
-
-        <div class="bienetre__gallery" aria-hidden="true">
-          <figure class="bienetre__shot bienetre__shot--1">
-            <svg viewBox="0 0 200 260" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <linearGradient id="zenStone" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#2d4a42"/>
-                  <stop offset="100%" stop-color="#0f2420"/>
-                </linearGradient>
-              </defs>
-              <rect width="200" height="260" fill="url(#zenStone)"/>
-              <!-- pierres empilées -->
-              <ellipse cx="100" cy="200" rx="58" ry="14" fill="#1a312b"/>
-              <ellipse cx="100" cy="170" rx="44" ry="11" fill="#223d36"/>
-              <ellipse cx="100" cy="148" rx="30" ry="8" fill="#2d4a42"/>
-              <ellipse cx="100" cy="132" rx="20" ry="6" fill="#3a5a50"/>
-              <!-- lueur -->
-              <circle cx="60" cy="50" r="40" fill="#d6a86a" opacity="0.18"/>
-              <circle cx="60" cy="50" r="18" fill="#f3cd8c" opacity="0.3"/>
-              <!-- bambou ligne -->
-              <path d="M160,0 L160,260" stroke="#3a5a50" stroke-width="3" opacity="0.5"/>
-              <path d="M160,60 L175,60 M160,120 L175,120 M160,180 L175,180" stroke="#3a5a50" stroke-width="1.6" opacity="0.7"/>
+    <!-- 01 — PHILOSOPHIE -->
+    <section class="section salon__philo" id="salon-philosophie">
+      <div class="salon__philo-grid">
+        <div class="salon__philo-copy">
+          <p class="section__num">01 — Philosophie</p>
+          <h2 class="section__title">Une main qui écoute, <em>trois mille ans de gestes.</em></h2>
+          <p>
+            Le Tuina n'est pas un massage de détente&nbsp;: c'est une conversation
+            entre la main et le corps. On cherche les nœuds, on suit les méridiens,
+            on rend au souffle sa circulation. Héritée de la médecine chinoise classique,
+            cette pratique considère le corps comme un paysage — on y trace des chemins,
+            on n'y force rien.
+          </p>
+          <p class="salon__philo-lede">
+            Ici, pas d'ambiance spa parfumée ni de musique de supermarché zen.
+            Une lumière basse, une tisane, un silence. Et le temps qu'il faut.
+          </p>
+          <div class="salon__brush" aria-hidden="true">
+            <svg viewBox="0 0 400 80" preserveAspectRatio="xMidYMid meet">
+              <path d="M10,40 C80,20 140,62 210,38 C280,14 340,56 390,36"
+                fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity="0.35"/>
+              <circle cx="10" cy="40" r="2.2" fill="currentColor" opacity="0.4"/>
+              <circle cx="390" cy="36" r="2.2" fill="currentColor" opacity="0.4"/>
             </svg>
-            <figcaption>Salon intime · lumière tamisée</figcaption>
-          </figure>
-
-          <figure class="bienetre__shot bienetre__shot--2">
-            <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <radialGradient id="teaSteam" cx="50%" cy="70%" r="60%">
-                  <stop offset="0%" stop-color="#d9e6d6"/>
-                  <stop offset="100%" stop-color="#2d4a42"/>
-                </radialGradient>
-              </defs>
-              <rect width="200" height="200" fill="url(#teaSteam)"/>
-              <!-- théière -->
-              <ellipse cx="100" cy="140" rx="48" ry="30" fill="#1a2720" stroke="#4a6b5e" stroke-width="1.5"/>
-              <path d="M55,135 C40,130 35,120 48,118" fill="none" stroke="#1a2720" stroke-width="6" stroke-linecap="round"/>
-              <path d="M145,130 C160,120 162,110 152,105" fill="none" stroke="#1a2720" stroke-width="4" stroke-linecap="round"/>
-              <rect x="92" y="100" width="16" height="8" rx="2" fill="#1a2720"/>
-              <!-- vapeur -->
-              <path class="steam" d="M95,95 Q90,80 100,70 Q108,60 100,50" fill="none" stroke="#f3e6c6" stroke-width="1.4" opacity="0.65"/>
-              <path class="steam" d="M105,95 Q112,82 104,72 Q96,62 108,54" fill="none" stroke="#f3e6c6" stroke-width="1.4" opacity="0.5"/>
-            </svg>
-            <figcaption>Thé chaud · avant la séance</figcaption>
-          </figure>
-
-          <figure class="bienetre__shot bienetre__shot--3">
-            <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
-              <rect width="200" height="200" fill="#162e28"/>
-              <!-- Fleur de lotus grande, centrée -->
-              <g transform="translate(100 130)" fill="none" stroke="#d6a86a" stroke-width="1.8" stroke-linecap="round" opacity="0.8">
-                <path d="M0,0 C-22,-22 -22,-56 0,-70 C22,-56 22,-22 0,0 Z"/>
-                <path d="M0,0 C-40,-10 -54,-36 -44,-58 C-18,-56 0,-26 0,0 Z"/>
-                <path d="M0,0 C40,-10 54,-36 44,-58 C18,-56 0,-26 0,0 Z"/>
-                <path d="M0,0 C-56,4 -70,-18 -66,-42 C-40,-34 -16,-14 0,0 Z"/>
-                <path d="M0,0 C56,4 70,-18 66,-42 C40,-34 16,-14 0,0 Z"/>
-              </g>
-              <!-- étoiles -->
-              <circle cx="40"  cy="40"  r="1.2" fill="#f3cd8c"/>
-              <circle cx="160" cy="30"  r="1.4" fill="#f3cd8c"/>
-              <circle cx="170" cy="80"  r="1.0" fill="#f3cd8c"/>
-              <circle cx="28"  cy="90"  r="1.4" fill="#f3cd8c"/>
-            </svg>
-            <figcaption>Lotus · Tuina &amp; réflexologie</figcaption>
-          </figure>
+          </div>
+          <p class="salon__stamp-cjk" aria-hidden="true">
+            <span class="salon__stamp-char">靜</span><span class="salon__stamp-label">jìng · calme</span>
+          </p>
         </div>
+
+        <figure class="salon__philo-photo">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=900&q=80"
+               alt="Pierres empilées sur fond zen" loading="lazy"/>
+          <figcaption>Pierres — équilibre, poids, silence.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 02 — LES SOINS -->
+    <section class="section salon__soins" id="salon-soins">
+      <div class="section__head">
+        <p class="section__num">02 — Les soins</p>
+        <h2 class="section__title">Quatre formats, <em>un seul parti pris&nbsp;: le soin.</em></h2>
       </div>
 
-      <ul class="bienetre__list">
+      <div class="salon__cards">
+        <article class="scard">
+          <div class="scard__photo">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=700&q=80"
+                 alt="Soin Tuina thérapeutique" loading="lazy"/>
+            <span class="scard__cjk" aria-hidden="true">推拿</span>
+          </div>
+          <div class="scard__body">
+            <div class="scard__head">
+              <h3>Tuina thérapeutique</h3>
+              <b>75 €<small>/ 1 h</small></b>
+            </div>
+            <p>Points méridiens, pressions profondes, déblocages articulaires. Pour les dos cassés d'écran et les nuques qui ne pardonnent plus.</p>
+            <span class="scard__meta">Indiqué · tensions chroniques</span>
+          </div>
+        </article>
+
+        <article class="scard">
+          <div class="scard__photo">
+            <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=700&q=80"
+                 alt="Massage sportif, récupération" loading="lazy"/>
+            <span class="scard__cjk" aria-hidden="true">活力</span>
+          </div>
+          <div class="scard__body">
+            <div class="scard__head">
+              <h3>Sportif · récupération</h3>
+              <b>60 €<small>/ 1 h</small></b>
+            </div>
+            <p>Drainage musculaire après l'effort, travail ciblé sur les chaînes sollicitées. On dénoue, on relance, on remet en circulation.</p>
+            <span class="scard__meta">Indiqué · après course, trail, sport intensif</span>
+          </div>
+        </article>
+
+        <article class="scard">
+          <div class="scard__photo">
+            <img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?auto=format&fit=crop&w=700&q=80"
+                 alt="Réflexologie plantaire" loading="lazy"/>
+            <span class="scard__cjk" aria-hidden="true">足療</span>
+          </div>
+          <div class="scard__body">
+            <div class="scard__head">
+              <h3>Réflexologie plantaire</h3>
+              <b>60 €<small>/ 1 h</small></b>
+            </div>
+            <p>Voûte plantaire, zones réflexes, chevilles. Le pied comme carte du corps — on y passe une heure, on en ressort allégé d'une semaine.</p>
+            <span class="scard__meta">Indiqué · jambes lourdes, fatigue diffuse</span>
+          </div>
+        </article>
+
+        <article class="scard">
+          <div class="scard__photo">
+            <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=700&q=80"
+                 alt="Soin relaxant, huiles tièdes" loading="lazy"/>
+            <span class="scard__cjk" aria-hidden="true">安寧</span>
+          </div>
+          <div class="scard__body">
+            <div class="scard__head">
+              <h3>Relaxant enveloppant</h3>
+              <b>55 €<small>/ 45 min</small></b>
+            </div>
+            <p>Huiles tièdes, gestes longs, respiration accompagnée. Pour poser les armes un moment — une parenthèse dans une journée trop pleine.</p>
+            <span class="scard__meta">Indiqué · stress, insomnies légères</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 03 — LA SÉANCE -->
+    <section class="section salon__seance" id="salon-seance">
+      <div class="section__head">
+        <p class="section__num">03 — Une séance</p>
+        <h2 class="section__title">Comment <em>ça se passe.</em></h2>
+        <p class="section__lede">
+          Une heure, quatre temps. Rien d'obligatoire, rien de standardisé — on adapte chaque étape à ce que vous venez chercher.
+        </p>
+      </div>
+
+      <ol class="salon__steps">
         <li>
-          <h3>Thérapeutique</h3>
-          <span>1 h · Tuina</span>
-          <b>75&nbsp;€</b>
-          <p class="bienetre__desc">Points méridiens, pression profonde — pour les dos noués et les nuques tendues.</p>
+          <span class="salon__step-num">一</span>
+          <h3>L'accueil</h3>
+          <p>On échange cinq minutes&nbsp;: où ça tire, ce que vous voulez dénouer, ce que le sommeil de la semaine a laissé derrière.</p>
         </li>
         <li>
-          <h3>Sportif</h3>
-          <span>1 h · tonique</span>
-          <b>60&nbsp;€</b>
-          <p class="bienetre__desc">Drainage musculaire après l'effort, récupération ciblée.</p>
+          <span class="salon__step-num">二</span>
+          <h3>Le thé</h3>
+          <p>Un thé chaud, souvent au jasmin ou au pu-erh. On baisse la lumière, on laisse le corps arriver.</p>
         </li>
         <li>
-          <h3>Pédicure &amp; pieds</h3>
-          <span>1 h · réflexologie</span>
-          <b>60&nbsp;€</b>
-          <p class="bienetre__desc">Reboot complet : zones réflexes, chevilles, voûtes plantaires.</p>
+          <span class="salon__step-num">三</span>
+          <h3>Le soin</h3>
+          <p>Cinquante minutes. On travaille à la main, à l'huile tiède, sans parole sauf si vous en voulez. Musique traditionnelle basse.</p>
         </li>
         <li>
-          <h3>Relaxant</h3>
-          <span>45 min · enveloppant</span>
-          <b>55&nbsp;€</b>
-          <p class="bienetre__desc">Huiles tièdes, gestes lents — pour poser les armes un moment.</p>
+          <span class="salon__step-num">四</span>
+          <h3>Le retour</h3>
+          <p>On ne vous réveille pas d'un coup — un second thé, le temps que le corps reprenne ses repères. Puis vous repartez.</p>
         </li>
-      </ul>
-    </div>
-  </section>
+      </ol>
+    </section>
+
+    <!-- 04 — LE LIEU -->
+    <section class="section salon__lieu" id="salon-lieu">
+      <div class="section__head">
+        <p class="section__num">04 — Le lieu</p>
+        <h2 class="section__title">Hors du service, <em>hors du temps.</em></h2>
+        <p class="section__lede">
+          Le salon n'ouvre que sur rendez-vous, en dehors des heures du restaurant. Une pièce discrète, à l'étage — pensée comme on pense une chambre de thé&nbsp;: peu d'objets, beaucoup d'air.
+        </p>
+      </div>
+
+      <div class="salon__lieu-grid">
+        <figure class="salon__lieu-photo salon__lieu-photo--big">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1100&q=80"
+               alt="Salon de massage, ambiance tamisée" loading="lazy"/>
+          <figcaption>La pièce · lumière basse, bois, lin</figcaption>
+        </figure>
+        <figure class="salon__lieu-photo">
+          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=700&q=80"
+               alt="Thé chaud avant la séance" loading="lazy"/>
+          <figcaption>Le thé · avant, pendant, après</figcaption>
+        </figure>
+        <figure class="salon__lieu-photo">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=700&q=80"
+               alt="Pierres zen" loading="lazy"/>
+          <figcaption>Le poids · pierres chaudes</figcaption>
+        </figure>
+      </div>
+
+      <div class="salon__booking">
+        <div class="salon__booking-copy">
+          <h3>Réserver un soin</h3>
+          <p>Par téléphone, de préférence — on vous propose un créneau hors service. Nous tenons un carnet&nbsp;; pas de plateforme.</p>
+        </div>
+        <div class="salon__booking-cta">
+          <a class="btn btn--primary" href="tel:+3265587721">065 / 58.77.21</a>
+          <a class="btn btn--ghost" href="#contact">Voir le lieu<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+  </div>
 
   <!-- TÉMOIGNAGES -->
   <section class="quotes">
