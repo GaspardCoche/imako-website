@@ -403,6 +403,50 @@
     </div>
   </section>
 
+  <!-- EN CUISINE — galerie photos, mode cuisine uniquement -->
+  <section class="section cuisine-gallery" data-mode-section="cuisine">
+    <div class="section__head">
+      <p class="section__num">— En cuisine</p>
+      <h2 class="section__title">Fait maison, <em>fait à la main.</em></h2>
+      <p class="section__lede">
+        Le riz vinaigré tiédi le matin, les sauces montées à la louche, les nouilles taillées à la commande.
+        On travaille peu d'ingrédients mais on les travaille longtemps — le reste, c'est du feu et du temps.
+      </p>
+    </div>
+
+    <figure class="cuisine-gallery__hero photo">
+      <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1800&q=80"
+           alt="Poke bowl signature" loading="lazy"/>
+      <figcaption>
+        <span class="photo__kicker">Signature</span>
+        <span class="photo__title">Le poke saumon miso.</span>
+      </figcaption>
+    </figure>
+
+    <div class="cuisine-gallery__grid">
+      <figure class="photo">
+        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=900&q=80"
+             alt="Ramen du soir" loading="lazy"/>
+        <figcaption><span class="photo__kicker">Ramen &amp; udon</span></figcaption>
+      </figure>
+      <figure class="photo">
+        <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=900&q=80"
+             alt="Partage asiatique, dim sum" loading="lazy"/>
+        <figcaption><span class="photo__kicker">Dim sum</span></figcaption>
+      </figure>
+      <figure class="photo">
+        <img src="https://images.unsplash.com/photo-1512003867696-6d5ce6835040?auto=format&fit=crop&w=900&q=80"
+             alt="Wok et cuisine ouverte" loading="lazy"/>
+        <figcaption><span class="photo__kicker">Au wok</span></figcaption>
+      </figure>
+      <figure class="photo">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80"
+             alt="Plat asiatique, vue du dessus" loading="lazy"/>
+        <figcaption><span class="photo__kicker">Le service</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- POKE — pièce signature -->
   <section class="poke" id="poke" data-mode-section="cuisine">
     <div class="poke__inner">
@@ -695,10 +739,13 @@
           </p>
         </div>
 
-        <figure class="salon__philo-photo">
+        <figure class="salon__philo-photo photo photo--portrait">
           <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=900&q=80"
-               alt="Pierres empilées sur fond zen" loading="lazy"/>
-          <figcaption>Pierres — équilibre, poids, silence.</figcaption>
+               alt="Pierres empilées, équilibre et silence" loading="lazy"/>
+          <figcaption>
+            <span class="photo__kicker">Tuina</span>
+            <span class="photo__title">Équilibre, poids, silence.</span>
+          </figcaption>
         </figure>
       </div>
     </section>
@@ -745,7 +792,7 @@
 
         <article class="scard">
           <div class="scard__photo">
-            <img src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?auto=format&fit=crop&w=700&q=80"
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
                  alt="Réflexologie plantaire" loading="lazy"/>
             <span class="scard__cjk" aria-hidden="true">足療</span>
           </div>
@@ -821,21 +868,30 @@
         </p>
       </div>
 
-      <div class="salon__lieu-grid">
-        <figure class="salon__lieu-photo salon__lieu-photo--big">
-          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1100&q=80"
-               alt="Salon de massage, ambiance tamisée" loading="lazy"/>
-          <figcaption>La pièce · lumière basse, bois, lin</figcaption>
-        </figure>
-        <figure class="salon__lieu-photo">
-          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=700&q=80"
+      <figure class="salon__lieu-hero photo">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1800&q=80"
+             alt="Salon de massage, ambiance tamisée" loading="lazy"/>
+        <figcaption>
+          <span class="photo__kicker">La pièce</span>
+          <span class="photo__title">Une chambre de thé, pas un spa.</span>
+        </figcaption>
+      </figure>
+
+      <div class="salon__lieu-strip">
+        <figure class="photo">
+          <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80"
                alt="Thé chaud avant la séance" loading="lazy"/>
-          <figcaption>Le thé · avant, pendant, après</figcaption>
+          <figcaption><span class="photo__kicker">Le thé</span></figcaption>
         </figure>
-        <figure class="salon__lieu-photo">
-          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=700&q=80"
+        <figure class="photo">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80"
                alt="Pierres zen" loading="lazy"/>
-          <figcaption>Le poids · pierres chaudes</figcaption>
+          <figcaption><span class="photo__kicker">Les pierres</span></figcaption>
+        </figure>
+        <figure class="photo">
+          <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=800&q=80"
+               alt="Détail spa, bois et lin" loading="lazy"/>
+          <figcaption><span class="photo__kicker">Le silence</span></figcaption>
         </figure>
       </div>
 
@@ -853,8 +909,8 @@
 
   </div>
 
-  <!-- TÉMOIGNAGES -->
-  <section class="quotes">
+  <!-- TÉMOIGNAGES — version Table -->
+  <section class="quotes" data-mode-section="cuisine">
     <ul class="quotes__list">
       <li>
         <blockquote>« On revient pour le poke saumon. On reste pour la salle. »</blockquote>
@@ -871,17 +927,36 @@
     </ul>
   </section>
 
+  <!-- TÉMOIGNAGES — version Salon -->
+  <section class="quotes quotes--salon" data-mode-section="bien-etre">
+    <ul class="quotes__list">
+      <li>
+        <blockquote>« Sortie du salon, j'ai dormi neuf heures d'affilée. Je n'avais pas fait ça depuis des années. »</blockquote>
+        <cite>Marie — après un Tuina</cite>
+      </li>
+      <li>
+        <blockquote>« Une pièce qui sent le bois, un thé au jasmin, des mains qui savent. Rare. »</blockquote>
+        <cite>Pierre — Mons</cite>
+      </li>
+      <li>
+        <blockquote>« On comprend tout de suite qu'on n'est pas chez un kiné, ni dans un spa. C'est autre chose. »</blockquote>
+        <cite>Sophie — cliente fidèle</cite>
+      </li>
+    </ul>
+  </section>
+
   <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="contact__inner">
       <div class="contact__head">
-        <p class="section__num">06 — Visiter Imakō</p>
+        <p class="section__num" data-show="cuisine">06 — Visiter Imakō</p>
+        <p class="section__num" data-show="bien-etre">05 — Nous trouver</p>
         <h2 class="section__title">88 Rue des Viaducs<br><em>7020 Nimy · Mons.</em></h2>
       </div>
 
       <div class="contact__grid">
-        <div class="contact__card">
-          <h3>Horaires</h3>
+        <div class="contact__card" data-show="cuisine">
+          <h3>Horaires du restaurant</h3>
           <ul class="contact__hours">
             <li><span>Lundi</span><span>18:00 — 20:30</span></li>
             <li><span>Mardi</span><span class="closed">Fermé</span></li>
@@ -891,20 +966,43 @@
             <li><span>Samedi</span><span>18:00 — 21:00</span></li>
             <li><span>Dimanche</span><span>18:00 — 20:30</span></li>
           </ul>
-          <p class="contact__hint">Pour les massages et la salle privée, sur réservation uniquement.</p>
+          <p class="contact__hint">Service du soir uniquement. Salle privée et massages sur réservation.</p>
         </div>
 
-        <div class="contact__card">
+        <div class="contact__card" data-show="bien-etre">
+          <h3>Salon · sur rendez-vous</h3>
+          <ul class="contact__hours">
+            <li><span>Du lundi au vendredi</span><span>11:00 — 17:00</span></li>
+            <li><span>Samedi</span><span>10:00 — 15:00</span></li>
+            <li><span>Dimanche</span><span class="closed">Fermé</span></li>
+          </ul>
+          <p class="contact__hint">Créneaux fixés hors du service restaurant. Téléphone de préférence — pas de plateforme de réservation.</p>
+        </div>
+
+        <div class="contact__card" data-show="cuisine">
           <h3>Réserver, commander</h3>
           <a class="contact__big" href="tel:+3265587721">065 / 58.77.21</a>
           <p>
-            Pour une table, un massage, ou un plat à emporter — un coup de fil
-            est souvent le plus rapide. Le quartier est résidentiel, on prévient quand votre commande est prête.
+            Pour une table ou un plat à emporter — un coup de fil est souvent le plus rapide.
+            Le quartier est résidentiel, on prévient quand votre commande est prête.
           </p>
           <div class="contact__socials">
             <a href="https://www.facebook.com/imakopoke/" target="_blank" rel="noopener">Facebook</a>
             <a href="https://www.instagram.com/imako.poke/" target="_blank" rel="noopener">Instagram</a>
             <a href="https://www.imakopoke.com/" target="_blank" rel="noopener">Commander en ligne</a>
+          </div>
+        </div>
+
+        <div class="contact__card" data-show="bien-etre">
+          <h3>Prendre rendez-vous</h3>
+          <a class="contact__big" href="tel:+3265587721">065 / 58.77.21</a>
+          <p>
+            Un coup de fil, un créneau, un carnet — pas de formulaire, pas de rappel automatique.
+            On vous propose une plage en dehors du service, on note, on vous attend.
+          </p>
+          <div class="contact__socials">
+            <a href="https://www.facebook.com/imakopoke/" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://www.instagram.com/imako.poke/" target="_blank" rel="noopener">Instagram</a>
           </div>
         </div>
 
@@ -935,23 +1033,40 @@
     <div class="footer__inner">
       <div class="footer__brand">
         <span class="footer__mark">Imakō</span>
-        <p>Poke bowls, traiteur asiatique &amp; massages chinois<br>à Nimy, Mons. Depuis 2005.</p>
+        <p data-show="cuisine">Poke bowls, traiteur asiatique &amp; cuisine maison<br>à Nimy, Mons. Depuis 2005.</p>
+        <p data-show="bien-etre">Salon de soins traditionnels chinois,<br>à Nimy, Mons. Sur rendez-vous.</p>
       </div>
 
       <div class="footer__cols">
-        <div>
+        <div data-show="cuisine">
           <h5>Le restaurant</h5>
           <a href="#histoire">Notre histoire</a>
           <a href="#carte">La carte</a>
           <a href="#poke">Poke bowls</a>
-          <a href="#bien-etre">Massages</a>
-        </div>
-        <div>
-          <h5>Recevoir</h5>
           <a href="#experience">Salle privée</a>
+        </div>
+        <div data-show="cuisine">
+          <h5>Commander</h5>
+          <a href="#commander">Composer un bowl</a>
           <a href="#experience">Traiteur &amp; livraison</a>
           <a href="#contact">Réserver une table</a>
+          <a href="#bien-etre" data-goto-mode="bien-etre">Passer au salon →</a>
         </div>
+
+        <div data-show="bien-etre">
+          <h5>Le salon</h5>
+          <a href="#salon-philosophie">Philosophie</a>
+          <a href="#salon-soins">Les soins</a>
+          <a href="#salon-seance">La séance</a>
+          <a href="#salon-lieu">Le lieu</a>
+        </div>
+        <div data-show="bien-etre">
+          <h5>Pratique</h5>
+          <a href="tel:+3265587721">Prendre rendez-vous</a>
+          <a href="#contact">Nous trouver</a>
+          <a href="#top" data-goto-mode="cuisine">Revenir à la table →</a>
+        </div>
+
         <div>
           <h5>Suivre</h5>
           <a href="https://www.instagram.com/imako.poke/" target="_blank" rel="noopener">Instagram</a>
