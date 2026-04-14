@@ -1486,6 +1486,465 @@ input, select, textarea { font: inherit; color: inherit; }
 [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
 [data-reveal].is-in { opacity: 1; transform: none; }
 
+/* =========================================================
+   DUAL THEME — Cuisine (warm) / Bien-être (jade & gold)
+   ========================================================= */
+:root {
+  /* Palette dragon (mode cuisine par défaut) */
+  --dragon-a: #c8341a;
+  --dragon-b: #f2b13d;
+  --dragon-spine: #fbe9cd;
+  --dragon-eye: #2b1610;
+  --dragon-pearl: #f6c869;
+}
+
+body {
+  transition: background 1.2s var(--ease), color 1.2s var(--ease);
+}
+
+body[data-mode="bien-etre"] {
+  --cream:     #f4efe4;
+  --cream-2:   #e6ddc8;
+  --paper:     #ece4d0;
+  --paper-2:   #d9ceb0;
+
+  --ink:       #142b26;   /* vert nuit */
+  --ink-soft:  #24423a;
+  --ink-mute:  #6e8178;
+  --line:      rgba(20, 43, 38, 0.15);
+
+  --terracotta:   #2f6b5b;   /* jade profond (primary) */
+  --terracotta-2: #225245;
+  --ember:        #4f9280;   /* jade clair (secondary) */
+  --paprika:      #2f6b5b;
+  --cocoa:        #0f2420;   /* vert nuit pour sections sombres */
+  --cocoa-2:      #17332c;
+
+  --ponzu:   #d6a86a;   /* or rose */
+  --saffron: #c49253;
+  --honey:   #e9c68f;
+  --rice:    #ede1c4;
+
+  /* Dragon (mode zen : jade → or) */
+  --dragon-a: #2f6b5b;
+  --dragon-b: #d6a86a;
+  --dragon-spine: #f4efe4;
+  --dragon-eye: #0f2420;
+  --dragon-pearl: #e9c68f;
+}
+
+/* Contenu conditionnel par mode */
+[data-show="cuisine"],
+[data-show="bien-etre"] {
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+body[data-mode="cuisine"] [data-show="bien-etre"],
+body[data-mode="bien-etre"] [data-show="cuisine"] {
+  display: none !important;
+}
+
+/* =========================================================
+   MODE SWITCH — pillule Cuisine / Bien-être
+   ========================================================= */
+.mode-switch {
+  position: relative;
+  display: inline-flex;
+  gap: 0;
+  padding: 5px;
+  margin-bottom: 22px;
+  background: rgba(43, 22, 16, 0.06);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.mode-switch__btn {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px 9px 14px;
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-mute);
+  transition: color 0.35s var(--ease);
+  cursor: pointer;
+}
+.mode-switch__btn svg { transition: transform 0.5s var(--ease); }
+.mode-switch__btn span { display: flex; flex-direction: column; line-height: 1.05; text-align: left; }
+.mode-switch__btn b {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+.mode-switch__btn small {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 2px;
+}
+.mode-switch__btn.is-active { color: var(--cream); }
+.mode-switch__btn.is-active b { color: var(--cream); }
+.mode-switch__btn.is-active small { color: rgba(255,255,255,0.7); }
+.mode-switch__btn.is-active svg { transform: rotate(-10deg) scale(1.08); }
+
+.mode-switch__indicator {
+  position: absolute;
+  top: 5px; left: 5px;
+  width: calc(50% - 5px); height: calc(100% - 10px);
+  background: var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 10px 24px -10px rgba(43, 22, 16, 0.55);
+  transition: transform 0.55s var(--ease), background 0.55s var(--ease);
+  z-index: 1;
+}
+body[data-mode="bien-etre"] .mode-switch__indicator { transform: translateX(100%); background: var(--terracotta); }
+body[data-mode="bien-etre"] .mode-switch { background: rgba(20, 43, 38, 0.06); }
+
+@media (max-width: 560px) {
+  .mode-switch__btn small { display: none; }
+}
+
+/* =========================================================
+   HERO — fix du clipping italique + palette bien-être
+   ========================================================= */
+.hero__title {
+  padding-bottom: 0.12em;
+  line-height: 1.0;
+}
+.hero__line {
+  display: block;
+  padding: 0.02em 0 0.14em;
+}
+.hero__line > span {
+  display: inline-block;
+  transform: translateY(22px);
+  opacity: 0;
+  animation: hero-rise 0.95s var(--ease) forwards;
+  will-change: transform, opacity;
+}
+.hero__line:nth-child(1) > span { animation-delay: 0.08s; }
+.hero__line:nth-child(2) > span { animation-delay: 0.22s; }
+.hero__line:nth-child(3) > span { animation-delay: 0.36s; }
+.hero__line:nth-child(4) > span { animation-delay: 0.50s; }
+@keyframes hero-rise {
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.hero__line--em > span {
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.028em;
+  background: linear-gradient(135deg, var(--terracotta) 0%, var(--ember) 50%, var(--saffron) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+body[data-mode="bien-etre"] .hero__line--em > span {
+  background: linear-gradient(135deg, var(--terracotta) 0%, var(--ember) 45%, var(--ponzu) 100%);
+  -webkit-background-clip: text; background-clip: text;
+}
+
+/* Palette de fond mode zen */
+body[data-mode="bien-etre"] {
+  background:
+    radial-gradient(62% 52% at 100% 0%, rgba(47, 107, 91, 0.14), transparent 60%),
+    radial-gradient(50% 42% at 0% 100%, rgba(214, 168, 106, 0.18), transparent 60%),
+    var(--cream);
+  background-attachment: fixed;
+}
+
+/* =========================================================
+   DRAGON — chemin ondulant, discret mais vivant
+   ========================================================= */
+.hero__dragon {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0.55;
+  mix-blend-mode: normal;
+  pointer-events: none;
+  animation: dragon-breathe 9s ease-in-out infinite;
+  z-index: 0;
+}
+body[data-mode="bien-etre"] .hero__dragon { opacity: 0.45; }
+/* SVG stop/stroke/fill hooks via CSS variables */
+.dragon-stop-a { stop-color: var(--dragon-a); }
+.dragon-stop-b { stop-color: var(--dragon-b); }
+.dragon-stroke-b { stroke: var(--dragon-b); }
+.dragon-spine { stroke: var(--dragon-spine); }
+.dragon-fill-eye { fill: var(--dragon-eye); }
+.dragon-fill-pearl { fill: var(--dragon-pearl); }
+
+.hero__dragon-float {
+  transform-origin: center;
+  animation: dragon-drift 14s ease-in-out infinite;
+}
+@keyframes dragon-drift {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-10px, -6px); }
+  50%      { transform: translate(6px, -10px); }
+  75%      { transform: translate(10px, 4px); }
+}
+@keyframes dragon-breathe {
+  0%, 100% { opacity: 0.48; }
+  50%      { opacity: 0.6; }
+}
+
+.dragon-body {
+  animation: dragon-undulate 7s ease-in-out infinite;
+}
+.hero.reveal-dragon .dragon-body {
+  stroke-dasharray: 2200;
+  stroke-dashoffset: 2200;
+  animation: dragon-trace 4.5s var(--ease) 0.2s forwards,
+             dragon-undulate 7s ease-in-out 4.7s infinite;
+}
+@keyframes dragon-trace {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes dragon-undulate {
+  0%, 100% { stroke-width: 38; }
+  50%      { stroke-width: 44; }
+}
+.dragon-spine {
+  animation: dragon-spine-flow 6s linear infinite;
+}
+@keyframes dragon-spine-flow {
+  to { stroke-dashoffset: -360; }
+}
+.dragon-whisker {
+  transform-origin: 1340px 320px;
+  animation: whisker-wave 5s ease-in-out infinite;
+}
+.dragon-whisker:nth-of-type(2) { animation-delay: 0.4s; }
+@keyframes whisker-wave {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(3deg); }
+}
+.dragon-eye {
+  animation: dragon-blink 5.5s steps(1, end) infinite;
+}
+@keyframes dragon-blink {
+  0%, 92%, 100% { r: 6; }
+  94%, 97%      { r: 0.5; }
+}
+.dragon-pearl {
+  animation: pearl-pulse 3.6s ease-in-out infinite;
+}
+@keyframes pearl-pulse {
+  0%, 100% { opacity: 0.5; r: 8; }
+  50%      { opacity: 1;   r: 11; }
+}
+
+/* Nuages chinois stylisés */
+.hero__cloud {
+  position: absolute;
+  width: 120px; height: 60px;
+  color: var(--ink-mute);
+  opacity: 0.28;
+  pointer-events: none;
+  animation: cloud-drift 24s linear infinite;
+}
+.hero__cloud--1 { top: 14%; left: 55%; width: 100px; }
+.hero__cloud--2 { top: 28%; left: 72%; width: 80px; animation-duration: 30s; animation-delay: -8s; }
+@keyframes cloud-drift {
+  0%   { transform: translateX(-20px); }
+  50%  { transform: translateX(20px); }
+  100% { transform: translateX(-20px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dragon-body { stroke-dashoffset: 0 !important; animation: none; }
+  .hero__dragon, .hero__dragon-float, .dragon-spine, .dragon-whisker, .dragon-eye, .dragon-pearl, .hero__cloud {
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   ZEN STAGE — mode bien-être (yin/yang + lotus + anneaux)
+   ========================================================= */
+.hero__stage--zen {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: grid; place-items: center;
+  width: 100%;
+  max-width: 560px;
+  justify-self: end;
+}
+.zen { position: relative; width: 100%; height: 100%; display: grid; place-items: center; }
+.zen__ring {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(47, 107, 91, 0.22);
+  pointer-events: none;
+}
+.zen__ring--1 { inset: 6%;  border-color: rgba(47, 107, 91, 0.28); animation: zen-spin 80s linear infinite; border-style: dashed; }
+.zen__ring--2 { inset: 14%; border-color: rgba(214, 168, 106, 0.36); animation: zen-spin 60s linear reverse infinite; }
+.zen__ring--3 { inset: 22%; border-color: rgba(47, 107, 91, 0.4); animation: zen-breathe 7s ease-in-out infinite; }
+@keyframes zen-spin { to { transform: rotate(360deg); } }
+@keyframes zen-breathe {
+  0%,100% { transform: scale(1); opacity: 0.5; }
+  50%     { transform: scale(1.04); opacity: 0.85; }
+}
+
+.zen__yinyang {
+  position: relative; z-index: 2;
+  width: 46%; aspect-ratio: 1;
+  color: var(--ink);
+  animation: yinyang-spin 28s linear infinite;
+  filter: drop-shadow(0 18px 40px rgba(15, 36, 32, 0.35));
+}
+.zen__yinyang svg { width: 100%; height: 100%; display: block; }
+@keyframes yinyang-spin { to { transform: rotate(360deg); } }
+
+.zen__lotus {
+  position: absolute;
+  bottom: 8%; left: 50%;
+  transform: translateX(-50%);
+  width: 42%;
+  color: var(--ponzu);
+  opacity: 0.7;
+  animation: lotus-float 7s ease-in-out infinite;
+}
+.zen__lotus svg { width: 100%; display: block; }
+@keyframes lotus-float {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%     { transform: translateX(-50%) translateY(-8px); }
+}
+
+.zen__stamp {
+  position: absolute;
+  inset: -2%;
+  width: 104%; height: 104%;
+  animation: stampSpin 40s linear infinite;
+  pointer-events: none;
+}
+.zen__stamp text {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  fill: var(--ink-soft);
+  text-transform: uppercase;
+}
+
+.hero__tag--zen {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: transparent;
+}
+.hero__tag--zen .hero__tag-k { color: rgba(255,255,255,0.55); }
+.hero__tag--zen .hero__tag-v { color: var(--cream); }
+.hero__tag--zen .hero__tag-p { color: var(--ponzu); }
+
+.hero__chip--zen { background: var(--terracotta); color: var(--cream); }
+.hero__chip--zen svg { color: var(--ponzu); }
+
+@media (max-width: 980px) {
+  .hero__stage--zen { max-width: 380px; margin: 0 auto; justify-self: center; }
+}
+
+/* =========================================================
+   BIEN-ÊTRE section enrichie — kanji, gallery, desc
+   ========================================================= */
+.section.bienetre {
+  position: relative;
+  overflow: hidden;
+}
+body[data-mode="bien-etre"] .section.bienetre {
+  background:
+    radial-gradient(60% 50% at 0% 0%, rgba(47, 107, 91, 0.08), transparent 60%),
+    radial-gradient(40% 40% at 100% 100%, rgba(214, 168, 106, 0.12), transparent 60%);
+}
+.bienetre__kanji {
+  position: absolute;
+  top: 40%; right: -4%;
+  transform: translateY(-50%);
+  font-family: var(--serif);
+  font-size: clamp(260px, 36vw, 520px);
+  line-height: 0.9;
+  font-weight: 300;
+  color: var(--ink);
+  opacity: 0.055;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+body[data-mode="bien-etre"] .bienetre__kanji { opacity: 0.1; color: var(--terracotta); }
+.bienetre__grid { position: relative; z-index: 1; }
+
+.bienetre__gallery {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 14px;
+  margin-top: 36px;
+  max-width: 560px;
+}
+.bienetre__shot {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 22px 50px -22px rgba(15, 36, 32, 0.45);
+  aspect-ratio: 4 / 5;
+  background: #0f2420;
+}
+.bienetre__shot--1 { grid-row: 1 / 3; aspect-ratio: auto; }
+.bienetre__shot svg { width: 100%; height: 100%; display: block; }
+.bienetre__shot figcaption {
+  position: absolute;
+  bottom: 10px; left: 12px; right: 12px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 228, 0.88);
+  font-weight: 500;
+}
+.bienetre__shot .steam {
+  animation: steam-rise 4s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+.bienetre__shot .steam:nth-of-type(2) { animation-delay: -1.2s; }
+@keyframes steam-rise {
+  0%   { opacity: 0.3; transform: translateY(4px); }
+  50%  { opacity: 0.75; transform: translateY(-2px); }
+  100% { opacity: 0.3; transform: translateY(4px); }
+}
+
+/* Liste des soins — plus aérée */
+.bienetre__list li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.6fr auto auto;
+  grid-template-rows: auto auto;
+  align-items: baseline;
+  column-gap: 22px;
+  row-gap: 4px;
+  padding: 22px 0;
+  transition: padding 0.3s var(--ease), background 0.3s var(--ease);
+}
+.bienetre__list li:hover { padding-left: 14px; background: linear-gradient(90deg, rgba(47, 107, 91, 0.04), transparent); }
+.bienetre__list h3  { grid-row: 1; grid-column: 1; }
+.bienetre__list span { grid-row: 1; grid-column: 2; text-align: right; }
+.bienetre__list b    { grid-row: 1; grid-column: 3; text-align: right; }
+.bienetre__desc {
+  grid-row: 2; grid-column: 1 / -1;
+  font-size: 14px;
+  color: var(--ink-mute);
+  max-width: 440px;
+  margin: 0;
+}
+
+/* =========================================================
+   NAV — mode switch compatibility
+   ========================================================= */
+body[data-mode="bien-etre"] .nav__logo { color: var(--terracotta); filter: drop-shadow(0 6px 14px rgba(47, 107, 91, 0.35)); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
   html { scroll-behavior: auto; }

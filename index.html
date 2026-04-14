@@ -18,7 +18,7 @@
   <meta property="og:description" content="Depuis 2005, à Nimy (Mons). Cuisine maison de Chine, Thaïlande, Japon, Vietnam, Corée. Salle privée, livraison, massages." />
   <meta property="og:type" content="restaurant" />
 </head>
-<body>
+<body data-mode="cuisine">
 
   <!-- NAV -->
   <header class="nav" data-nav>
@@ -68,29 +68,122 @@
   <section class="hero" id="top">
     <div class="hero__bg" aria-hidden="true">
       <div class="hero__halo"></div>
+
+      <!-- Dragon chinois ondulant, discret en arrière-plan -->
+      <svg class="hero__dragon" viewBox="0 0 1400 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="dragonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   class="dragon-stop-a" style="stop-color: var(--dragon-a)" stop-opacity="0"/>
+            <stop offset="22%"  class="dragon-stop-a" style="stop-color: var(--dragon-a)" stop-opacity="0.95"/>
+            <stop offset="78%"  class="dragon-stop-b" style="stop-color: var(--dragon-b)" stop-opacity="0.95"/>
+            <stop offset="100%" class="dragon-stop-b" style="stop-color: var(--dragon-b)" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="dragonGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2.4"/>
+          </filter>
+        </defs>
+
+        <g class="hero__dragon-float">
+          <!-- Corps ondulant principal -->
+          <path class="dragon-body"
+            d="M -120,430 C 100,300 280,560 480,420 C 680,280 820,520 1020,380 C 1180,270 1320,380 1540,300"
+            fill="none" stroke="url(#dragonGrad)" stroke-width="42" stroke-linecap="round"/>
+          <!-- Ligne dorsale lumineuse -->
+          <path class="dragon-spine"
+            d="M -120,430 C 100,300 280,560 480,420 C 680,280 820,520 1020,380 C 1180,270 1320,380 1540,300"
+            fill="none" stroke-width="2" stroke-linecap="round"
+            stroke-dasharray="4 14" opacity="0.55" filter="url(#dragonGlow)"/>
+          <!-- Moustaches -->
+          <path class="dragon-whisker dragon-stroke-b"
+            d="M 1340,310 C 1260,240 1180,320 1100,260"
+            fill="none" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+          <path class="dragon-whisker dragon-stroke-b"
+            d="M 1340,330 C 1260,380 1180,320 1100,380"
+            fill="none" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+          <!-- Œil -->
+          <circle class="dragon-eye dragon-fill-eye" cx="1340" cy="295" r="6"/>
+          <circle cx="1342" cy="293" r="1.8" fill="#ffffff" opacity="0.95"/>
+          <!-- Perle du dragon (symbole de sagesse) -->
+          <circle class="dragon-pearl dragon-fill-pearl" cx="1450" cy="260" r="9" opacity="0.85"/>
+        </g>
+      </svg>
+
+      <!-- Nuages chinois stylisés -->
+      <svg class="hero__cloud hero__cloud--1" viewBox="0 0 120 60" aria-hidden="true">
+        <path d="M10,40 C10,20 30,20 40,30 C50,10 80,10 85,30 C100,25 110,45 95,50 C85,58 20,58 10,50 Z"
+          fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M30,40 C35,32 45,32 48,38" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+      </svg>
+      <svg class="hero__cloud hero__cloud--2" viewBox="0 0 120 60" aria-hidden="true">
+        <path d="M10,40 C10,20 30,20 40,30 C50,10 80,10 85,30 C100,25 110,45 95,50 C85,58 20,58 10,50 Z"
+          fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+
       <div class="hero__grain"></div>
     </div>
 
     <div class="hero__content">
-      <p class="hero__eyebrow">
+      <!-- Mode switch: Cuisine / Bien-être -->
+      <div class="mode-switch" role="tablist" aria-label="Choisir un univers">
+        <button class="mode-switch__btn is-active" data-mode-btn="cuisine" role="tab" aria-selected="true" type="button">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 8h18M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/>
+            <path d="M8 8V5m4 3V4m4 4V5"/>
+          </svg>
+          <span>
+            <b>La table</b>
+            <small>Cuisine asiatique</small>
+          </span>
+        </button>
+        <button class="mode-switch__btn" data-mode-btn="bien-etre" role="tab" aria-selected="false" type="button">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 3a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 0 0 9"/>
+            <circle cx="12" cy="7.5" r="1" fill="currentColor"/>
+            <circle cx="12" cy="16.5" r="1" fill="currentColor"/>
+          </svg>
+          <span>
+            <b>Le salon</b>
+            <small>Massages chinois</small>
+          </span>
+        </button>
+        <span class="mode-switch__indicator" aria-hidden="true"></span>
+      </div>
+
+      <p class="hero__eyebrow" data-show="cuisine">
         <span class="dot"></span>
         <span>Cuisine asiatique maison · Nimy, Mons</span>
         <span class="hero__eyebrow-sep"></span>
         <span>20 ans</span>
       </p>
-
-      <h1 class="hero__title">
-        <span class="reveal"><span>Le goût du</span></span>
-        <span class="reveal italic"><span>détail,</span></span>
-        <span class="reveal"><span>l'art du</span></span>
-        <span class="reveal italic"><span>bonheur.</span></span>
-      </h1>
-
-      <p class="hero__lede">
-        Poke bowls inspirés du Japon, recettes de Chine, Thaïlande, Vietnam et Corée — préparés chaque jour dans notre cuisine ouverte. Une parenthèse où la table et le bien-être se rejoignent.
+      <p class="hero__eyebrow" data-show="bien-etre">
+        <span class="dot"></span>
+        <span>Salon de soins traditionnels chinois</span>
+        <span class="hero__eyebrow-sep"></span>
+        <span>Sur rendez-vous</span>
       </p>
 
-      <div class="hero__ctas">
+      <h1 class="hero__title" data-show="cuisine">
+        <span class="hero__line"><span>Le goût du</span></span>
+        <span class="hero__line hero__line--em"><span>détail,</span></span>
+        <span class="hero__line"><span>l'art du</span></span>
+        <span class="hero__line hero__line--em"><span>bonheur.</span></span>
+      </h1>
+      <h1 class="hero__title" data-show="bien-etre">
+        <span class="hero__line"><span>Le souffle</span></span>
+        <span class="hero__line hero__line--em"><span>lent,</span></span>
+        <span class="hero__line"><span>le corps</span></span>
+        <span class="hero__line hero__line--em"><span>léger.</span></span>
+      </h1>
+
+      <p class="hero__lede" data-show="cuisine">
+        Poke bowls inspirés du Japon, recettes de Chine, Thaïlande, Vietnam et Corée — préparés chaque jour dans notre cuisine ouverte. Une parenthèse où la table et le bien-être se rejoignent.
+      </p>
+      <p class="hero__lede" data-show="bien-etre">
+        Tuina, pierres chaudes, réflexologie plantaire, soins thérapeutiques. Une heure volée à la semaine, dans un salon pensé comme une parenthèse — hors des heures de service.
+      </p>
+
+      <div class="hero__ctas" data-show="cuisine">
         <a class="btn btn--primary" href="#commander">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
           Composer mon bowl
@@ -100,8 +193,18 @@
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
       </div>
+      <div class="hero__ctas" data-show="bien-etre">
+        <a class="btn btn--primary" href="#bien-etre">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
+          Réserver un soin
+        </a>
+        <a class="btn btn--ghost" href="tel:+3265587721">
+          065 / 58.77.21
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
 
-      <ul class="hero__meta">
+      <ul class="hero__meta" data-show="cuisine">
         <li>
           <span class="hero__meta-k">Ce soir</span>
           <span class="hero__meta-v" data-today-hours>18:00 — 21:00</span>
@@ -115,9 +218,24 @@
           <span class="hero__meta-v">Mons & alentours</span>
         </li>
       </ul>
+      <ul class="hero__meta" data-show="bien-etre">
+        <li>
+          <span class="hero__meta-k">Thérapeutique</span>
+          <span class="hero__meta-v">75 € · 1 h</span>
+        </li>
+        <li>
+          <span class="hero__meta-k">Relaxant</span>
+          <span class="hero__meta-v">55 € · 45 min</span>
+        </li>
+        <li>
+          <span class="hero__meta-k">Sur place</span>
+          <span class="hero__meta-v">Aramis Club</span>
+        </li>
+      </ul>
     </div>
 
-    <div class="hero__stage" aria-hidden="true">
+    <!-- Stage côté cuisine : bol tournant -->
+    <div class="hero__stage" data-show="cuisine" aria-hidden="true">
       <div class="hero__spotlight"></div>
 
       <svg class="hero__stamp" viewBox="0 0 220 220">
@@ -153,6 +271,55 @@
       <div class="hero__chip">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 2l2.39 7.36H22l-6.19 4.5L18.2 21 12 16.5 5.8 21l2.39-7.14L2 9.36h7.61z"/></svg>
         <span>Fait maison · chaque jour</span>
+      </div>
+    </div>
+
+    <!-- Stage côté bien-être : cercle de soin zen -->
+    <div class="hero__stage hero__stage--zen" data-show="bien-etre" aria-hidden="true">
+      <div class="zen">
+        <div class="zen__ring zen__ring--1"></div>
+        <div class="zen__ring zen__ring--2"></div>
+        <div class="zen__ring zen__ring--3"></div>
+        <div class="zen__yinyang">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M50,2 A48,48 0 0 1 50,98 A24,24 0 0 1 50,50 A24,24 0 0 0 50,2 Z" fill="currentColor"/>
+            <circle cx="50" cy="26" r="5" fill="var(--cream)"/>
+            <circle cx="50" cy="74" r="5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="zen__lotus" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <g transform="translate(60 80)" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M0,0 C-22,-22 -22,-48 0,-60 C22,-48 22,-22 0,0 Z"/>
+              <path d="M0,0 C-34,-10 -44,-30 -36,-50 C-14,-46 0,-22 0,0 Z"/>
+              <path d="M0,0 C34,-10 44,-30 36,-50 C14,-46 0,-22 0,0 Z"/>
+              <path d="M0,0 C-44,10 -54,-6 -52,-26 C-30,-26 -14,-10 0,0 Z"/>
+              <path d="M0,0 C44,10 54,-6 52,-26 C30,-26 14,-10 0,0 Z"/>
+            </g>
+          </svg>
+        </div>
+        <svg class="zen__stamp" viewBox="0 0 220 220">
+          <defs>
+            <path id="zenCircle" d="M 110,110 m -92,0 a 92,92 0 1,1 184,0 a 92,92 0 1,1 -184,0"/>
+          </defs>
+          <text>
+            <textPath href="#zenCircle" startOffset="0">
+              SALON IMAKŌ · MASSAGES TRADITIONNELS · HORS DU TEMPS ·
+            </textPath>
+          </text>
+        </svg>
+      </div>
+
+      <div class="hero__tag hero__tag--zen">
+        <span class="hero__tag-k">Signature</span>
+        <span class="hero__tag-v">Tuina thérapeutique</span>
+        <span class="hero__tag-p">75,00 €</span>
+      </div>
+
+      <div class="hero__chip hero__chip--zen">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span>Sur réservation · hors service</span>
       </div>
     </div>
 
@@ -487,10 +654,13 @@
 
   <!-- BIEN-ÊTRE / MASSAGES -->
   <section class="section bienetre" id="bien-etre">
+    <!-- Idéogramme de fond : 氣 (qi, l'énergie) -->
+    <span class="bienetre__kanji" aria-hidden="true">氣</span>
+
     <div class="bienetre__grid">
       <div class="bienetre__copy">
         <p class="section__num">05 — Bien-être</p>
-        <h2 class="section__title">Massages traditionnels chinois.</h2>
+        <h2 class="section__title">Massages <em>traditionnels chinois.</em></h2>
         <p>
           Imako, c'est aussi une salle de soins. On y vient pour relâcher
           ce que la semaine a noué&nbsp;: dos cassé d'écran, jambes lourdes, crispations.
@@ -499,12 +669,100 @@
         <p class="bienetre__note">
           Nos soins ne remplacent pas un traitement médical&nbsp;; ils prolongent l'expérience d'une cuisine pensée pour faire du bien.
         </p>
+
+        <div class="bienetre__gallery" aria-hidden="true">
+          <figure class="bienetre__shot bienetre__shot--1">
+            <svg viewBox="0 0 200 260" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="zenStone" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#2d4a42"/>
+                  <stop offset="100%" stop-color="#0f2420"/>
+                </linearGradient>
+              </defs>
+              <rect width="200" height="260" fill="url(#zenStone)"/>
+              <!-- pierres empilées -->
+              <ellipse cx="100" cy="200" rx="58" ry="14" fill="#1a312b"/>
+              <ellipse cx="100" cy="170" rx="44" ry="11" fill="#223d36"/>
+              <ellipse cx="100" cy="148" rx="30" ry="8" fill="#2d4a42"/>
+              <ellipse cx="100" cy="132" rx="20" ry="6" fill="#3a5a50"/>
+              <!-- lueur -->
+              <circle cx="60" cy="50" r="40" fill="#d6a86a" opacity="0.18"/>
+              <circle cx="60" cy="50" r="18" fill="#f3cd8c" opacity="0.3"/>
+              <!-- bambou ligne -->
+              <path d="M160,0 L160,260" stroke="#3a5a50" stroke-width="3" opacity="0.5"/>
+              <path d="M160,60 L175,60 M160,120 L175,120 M160,180 L175,180" stroke="#3a5a50" stroke-width="1.6" opacity="0.7"/>
+            </svg>
+            <figcaption>Salon intime · lumière tamisée</figcaption>
+          </figure>
+
+          <figure class="bienetre__shot bienetre__shot--2">
+            <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <radialGradient id="teaSteam" cx="50%" cy="70%" r="60%">
+                  <stop offset="0%" stop-color="#d9e6d6"/>
+                  <stop offset="100%" stop-color="#2d4a42"/>
+                </radialGradient>
+              </defs>
+              <rect width="200" height="200" fill="url(#teaSteam)"/>
+              <!-- théière -->
+              <ellipse cx="100" cy="140" rx="48" ry="30" fill="#1a2720" stroke="#4a6b5e" stroke-width="1.5"/>
+              <path d="M55,135 C40,130 35,120 48,118" fill="none" stroke="#1a2720" stroke-width="6" stroke-linecap="round"/>
+              <path d="M145,130 C160,120 162,110 152,105" fill="none" stroke="#1a2720" stroke-width="4" stroke-linecap="round"/>
+              <rect x="92" y="100" width="16" height="8" rx="2" fill="#1a2720"/>
+              <!-- vapeur -->
+              <path class="steam" d="M95,95 Q90,80 100,70 Q108,60 100,50" fill="none" stroke="#f3e6c6" stroke-width="1.4" opacity="0.65"/>
+              <path class="steam" d="M105,95 Q112,82 104,72 Q96,62 108,54" fill="none" stroke="#f3e6c6" stroke-width="1.4" opacity="0.5"/>
+            </svg>
+            <figcaption>Thé chaud · avant la séance</figcaption>
+          </figure>
+
+          <figure class="bienetre__shot bienetre__shot--3">
+            <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
+              <rect width="200" height="200" fill="#162e28"/>
+              <!-- Fleur de lotus grande, centrée -->
+              <g transform="translate(100 130)" fill="none" stroke="#d6a86a" stroke-width="1.8" stroke-linecap="round" opacity="0.8">
+                <path d="M0,0 C-22,-22 -22,-56 0,-70 C22,-56 22,-22 0,0 Z"/>
+                <path d="M0,0 C-40,-10 -54,-36 -44,-58 C-18,-56 0,-26 0,0 Z"/>
+                <path d="M0,0 C40,-10 54,-36 44,-58 C18,-56 0,-26 0,0 Z"/>
+                <path d="M0,0 C-56,4 -70,-18 -66,-42 C-40,-34 -16,-14 0,0 Z"/>
+                <path d="M0,0 C56,4 70,-18 66,-42 C40,-34 16,-14 0,0 Z"/>
+              </g>
+              <!-- étoiles -->
+              <circle cx="40"  cy="40"  r="1.2" fill="#f3cd8c"/>
+              <circle cx="160" cy="30"  r="1.4" fill="#f3cd8c"/>
+              <circle cx="170" cy="80"  r="1.0" fill="#f3cd8c"/>
+              <circle cx="28"  cy="90"  r="1.4" fill="#f3cd8c"/>
+            </svg>
+            <figcaption>Lotus · Tuina &amp; réflexologie</figcaption>
+          </figure>
+        </div>
       </div>
+
       <ul class="bienetre__list">
-        <li><h3>Thérapeutique</h3><span>1h</span><b>75&nbsp;€</b></li>
-        <li><h3>Sportif</h3><span>1h</span><b>60&nbsp;€</b></li>
-        <li><h3>Pédicure &amp; massage des pieds</h3><span>1h</span><b>60&nbsp;€</b></li>
-        <li><h3>Relaxant</h3><span>45&nbsp;min</span><b>55&nbsp;€</b></li>
+        <li>
+          <h3>Thérapeutique</h3>
+          <span>1 h · Tuina</span>
+          <b>75&nbsp;€</b>
+          <p class="bienetre__desc">Points méridiens, pression profonde — pour les dos noués et les nuques tendues.</p>
+        </li>
+        <li>
+          <h3>Sportif</h3>
+          <span>1 h · tonique</span>
+          <b>60&nbsp;€</b>
+          <p class="bienetre__desc">Drainage musculaire après l'effort, récupération ciblée.</p>
+        </li>
+        <li>
+          <h3>Pédicure &amp; pieds</h3>
+          <span>1 h · réflexologie</span>
+          <b>60&nbsp;€</b>
+          <p class="bienetre__desc">Reboot complet : zones réflexes, chevilles, voûtes plantaires.</p>
+        </li>
+        <li>
+          <h3>Relaxant</h3>
+          <span>45 min · enveloppant</span>
+          <b>55&nbsp;€</b>
+          <p class="bienetre__desc">Huiles tièdes, gestes lents — pour poser les armes un moment.</p>
+        </li>
       </ul>
     </div>
   </section>

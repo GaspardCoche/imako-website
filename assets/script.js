@@ -6,6 +6,26 @@
   /* Year */
   const y = $("#year"); if (y) y.textContent = new Date().getFullYear();
 
+  /* ============================================================
+     MODE SWITCH — Cuisine / Bien-être (deux univers, deux thèmes)
+     ============================================================ */
+  const MODE_KEY = "imako-mode-v1";
+  const modeBtns = $$("[data-mode-btn]");
+  const applyMode = (mode) => {
+    document.body.dataset.mode = mode;
+    modeBtns.forEach(b => {
+      const active = b.dataset.modeBtn === mode;
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-selected", String(active));
+    });
+    try { localStorage.setItem(MODE_KEY, mode); } catch (e) {}
+  };
+  try {
+    const saved = localStorage.getItem(MODE_KEY);
+    if (saved === "cuisine" || saved === "bien-etre") applyMode(saved);
+  } catch (e) {}
+  modeBtns.forEach(b => b.addEventListener("click", () => applyMode(b.dataset.modeBtn)));
+
   /* Nav: stuck on scroll */
   const nav = $("[data-nav]");
   const onScroll = () => nav.classList.toggle("is-stuck", window.scrollY > 24);
